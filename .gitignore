@@ -24,3 +24,10 @@ coverage
 build/
 dist/
 
+# Webpack bundles
+bundle.js
+
+
+#SECRETS
+keys/
+
