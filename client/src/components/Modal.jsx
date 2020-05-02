@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 const ModalDisplay = styled.div`
-  bacgrkound-color: yellow;
+  background-color: yellow;
   display:none;
 `
 
