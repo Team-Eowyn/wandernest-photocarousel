@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PhotoCarousel from './components/PhotoCarousel.jsx';
 
 
 class App extends React.Component {
@@ -12,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>If you are reading this webpack and babel have compiled successfully!</h1>
+        <PhotoCarousel />
       </div>
     )
   }
