@@ -13,6 +13,10 @@ const Bottom = styled.div`
 const GalleryItem =styled.div`
   background-color: gray;
   grid-area: auto;
+
+  &:hover {
+    filter: brightness(125%);
+  }
 `
 
 

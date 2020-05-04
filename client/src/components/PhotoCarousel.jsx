@@ -22,17 +22,25 @@ const Container = styled.div`
 class PhotoCarousel extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = { show: false };
   }
 
+  showModal = () => {
+    this.setState({ show: true });
+  };
 
+  hideModal = () => {
+    this.setState({ show: false });
+  };
 
   render() {
     return (
       <Container>
-        <MainDisplay />
-        <Sidebar />
+        <MainDisplay showModal={this.showModal.bind(this)}/>
+        <Sidebar showModal={this.showModal.bind(this)}/>
         <BottomGallery />
-        <Modal />
+        <Modal show={this.state.show} hideModal={this.hideModal.bind(this)}/>
       </Container>
     )
   }
