@@ -10,20 +10,39 @@ const Side = styled.div`
   grid-area: 1 / 10 / 9 / 13;
   row-gap: 2px;
 `
-
-const Pool =styled.div`
-  grid-area: 7 / 1 / 10 / 4;
+const SidebarItem = styled.div`
   background-color:gray;
-  `
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align: center;
+  line-height:1.25;
 
-const Suite = styled.div`
-  grid-area: 4 / 1 / 7 / 4;
-  background-color:gray;
+  &:hover {
+    filter: brightness(125%);
+  }
 `
 
-const Traveler = styled.div`
+const Pool = styled(SidebarItem)`
+  grid-area: 7 / 1 / 10 / 4;
+
+`
+
+const Suite = styled(SidebarItem)`
+  grid-area: 4 / 1 / 7 / 4;
+
+`
+
+const Traveler = styled(SidebarItem)`
   grid-area: 1 / 1 / 4 / 4;
-  background-color:gray;
+`
+
+const InnerSpan = styled.span`
+  margin: auto;
+  display:block;
+  color:white;
+  font-size:16px;
+  font-family:Arial, sans-serif;
 `
 
 
@@ -37,9 +56,19 @@ class Sidebar extends React.Component {
   render() {
     return (
       <Side>
-        <Pool />
-        <Suite />
-        <Traveler />
+        <Traveler onClick={this.props.showModal}>
+          <InnerSpan>Traveler</InnerSpan>
+          <InnerSpan>(587)</InnerSpan>
+        </Traveler>
+        <Suite onClick={this.props.showModal}>
+          <InnerSpan><i class="fa fa-bed"></i></InnerSpan>
+          <InnerSpan>Room & Suite</InnerSpan>
+          <InnerSpan>(48)</InnerSpan></Suite>
+        <Pool onClick={this.props.showModal}>
+          <InnerSpan><i className="fa fa-camera"></i></InnerSpan>
+          <InnerSpan>Pool & Beach</InnerSpan>
+          <InnerSpan>(6)</InnerSpan>
+        </Pool>
       </Side>
     )
   }
