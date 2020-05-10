@@ -4,6 +4,7 @@ import MainDisplay from './MainDisplay.jsx';
 import Sidebar from './Sidebar.jsx';
 import BottomGallery from './BottomGallery.jsx';
 import Modal from './Modal.jsx';
+import  { withRouter }from "react-router-dom";
 import styled from 'styled-components';
 
 
@@ -23,8 +24,39 @@ class PhotoCarousel extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { show: false };
+    this.state = {
+      show: false,
+      hotel: null,
+      photos:null,
+      mainPhoto: null,
+    };
   }
+
+  componentWillMount(){
+    fetch(`/api/hotels/${this.props.match.params.id}`)
+      .then(response => response.json())
+      .then(data => {
+        let images = [];
+          data.photos.forEach(photo=>{
+          let img = new Image();
+          img.src = photo.photoPath;
+          console.log(img);
+          images.push(photo);
+        });
+
+        this.setState({
+          hotel: data,
+          photos: images,
+          mainPhoto: images[0].photoPath
+        });
+      });
+  }
+
+  setMainPhoto(e){
+    this.setState({
+      mainPhoto: e.target.src,
+    })
+  };
 
   showModal = () => {
     this.setState({ show: true });
@@ -35,15 +67,19 @@ class PhotoCarousel extends React.Component {
   };
 
   render() {
-    return (
-      <Container>
-        <MainDisplay showModal={this.showModal.bind(this)}/>
-        <Sidebar showModal={this.showModal.bind(this)}/>
-        <BottomGallery />
-        <Modal show={this.state.show} hideModal={this.hideModal.bind(this)}/>
-      </Container>
-    )
+      if (this.state.hotel !== null){
+        return (
+        <Container>
+          <MainDisplay showModal={this.showModal.bind(this)} background={this.state.mainPhoto}/>
+          <Sidebar showModal={this.showModal.bind(this)} setMainPhoto={this.setMainPhoto.bind(this)} photos={this.state.photos}/>
+          <BottomGallery photos={this.state.photos} setMainPhoto={this.setMainPhoto.bind(this)}/>
+          <Modal show={this.state.show} hideModal={this.hideModal.bind(this)}/>
+        </Container>
+        )
+      } else{
+        return "Loading..."
+      }
   }
 }
 
-export default PhotoCarousel;
+export default withRouter(PhotoCarousel);

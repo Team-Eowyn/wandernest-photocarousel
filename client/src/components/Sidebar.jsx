@@ -17,6 +17,8 @@ const SidebarItem = styled.div`
   justify-content:center;
   text-align: center;
   line-height:1.25;
+  background-image: url(${props => props.img});
+  background-size:100% 100%;
 
   &:hover {
     filter: brightness(125%);
@@ -25,6 +27,7 @@ const SidebarItem = styled.div`
 
 const Pool = styled(SidebarItem)`
   grid-area: 7 / 1 / 10 / 4;
+
 
 `
 
@@ -46,6 +49,7 @@ const InnerSpan = styled.span`
 `
 
 
+
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -56,15 +60,15 @@ class Sidebar extends React.Component {
   render() {
     return (
       <Side>
-        <Traveler onClick={this.props.showModal}>
+        <Traveler onClick={this.props.showModal} img={this.props.photos[7].photoPath}>
           <InnerSpan>Traveler</InnerSpan>
           <InnerSpan>(587)</InnerSpan>
         </Traveler>
-        <Suite onClick={this.props.showModal}>
+        <Suite onClick={this.props.showModal} img={this.props.photos[8].photoPath}>
           <InnerSpan><i class="fa fa-bed"></i></InnerSpan>
           <InnerSpan>Room & Suite</InnerSpan>
           <InnerSpan>(48)</InnerSpan></Suite>
-        <Pool onClick={this.props.showModal}>
+        <Pool onClick={this.props.showModal} img={this.props.photos[9].photoPath}>
           <InnerSpan><i className="fa fa-camera"></i></InnerSpan>
           <InnerSpan>Pool & Beach</InnerSpan>
           <InnerSpan>(6)</InnerSpan>
