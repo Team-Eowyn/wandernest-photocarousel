@@ -13,11 +13,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-      <Router basename='http://localhost:3000'>
-        <Route exact path='/id=:id' component={PhotoCarousel}/>
-      </Router>
-      </div>
+       <PhotoCarousel></PhotoCarousel>
     )
   }
 }

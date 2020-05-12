@@ -32,8 +32,10 @@ class PhotoCarousel extends React.Component {
     };
   }
 
-  componentWillMount(){
-    fetch(`/api/hotels/${this.props.match.params.id}`)
+  componentDidMount(){
+    var url = new URL(window.location.href);
+    var ID = url.searchParams.get('id');
+    fetch(`/api/hotels/${ID}`)
       .then(response => response.json())
       .then(data => {
         let images = [];
@@ -73,7 +75,7 @@ class PhotoCarousel extends React.Component {
           <MainDisplay showModal={this.showModal.bind(this)} background={this.state.mainPhoto}/>
           <Sidebar showModal={this.showModal.bind(this)} setMainPhoto={this.setMainPhoto.bind(this)} photos={this.state.photos}/>
           <BottomGallery photos={this.state.photos} setMainPhoto={this.setMainPhoto.bind(this)}/>
-          <Modal show={this.state.show} hideModal={this.hideModal.bind(this)}/>
+          <Modal show={this.state.show} hideModal={this.hideModal.bind(this)} photos={this.state.photos}/>
         </Container>
         )
       } else{
@@ -82,4 +84,4 @@ class PhotoCarousel extends React.Component {
   }
 }
 
-export default withRouter(PhotoCarousel);
+export default PhotoCarousel;
