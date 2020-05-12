@@ -12,6 +12,8 @@ const Display = styled.div`
   &:hover{
     filter: brightness(125%);
   }
+  background: ${props => `url(${props.background})`};
+  background-size: 100% 100%;
 `
 
 const ViewAll = styled.span`
@@ -30,6 +32,7 @@ const ViewAll = styled.span`
 `
 
 
+
 class MainDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +42,7 @@ class MainDisplay extends React.Component {
 
   render() {
     return (
-      <Display onClick={this.props.showModal}>
+      <Display onClick={this.props.showModal} background={this.props.background}>
         <ViewAll><i className="fa fa-camera"></i>   View all photos (608)</ViewAll>
       </Display>
     )

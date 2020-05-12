@@ -19,20 +19,36 @@ const GalleryItem =styled.div`
   }
 `
 
+const GalleryImage =styled.img`
+  height:100%;
+  width:100%;
+`
+
 
 
 
 class BottomGallery extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      photos: []
+    }
+  }
+
+  componentWillMount(){
+    this.setState({
+      photos:this.props.photos
+    })
   }
 
   render() {
+    console.log(this.state.photos);
     return (
       <Bottom>
-        {[...Array(20)].map((x, i) =>
-          <GalleryItem key={i} />
-        )}
+        {this.state.photos.map((item, index)=>{
+          return <GalleryItem key={index} onClick={(e)=>this.props.setMainPhoto(e)}><GalleryImage src={item.photoPath}></GalleryImage></GalleryItem>
+        })}
       </Bottom>
     )
   }
