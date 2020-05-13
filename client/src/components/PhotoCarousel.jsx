@@ -75,7 +75,7 @@ class PhotoCarousel extends React.Component {
           <MainDisplay showModal={this.showModal.bind(this)} background={this.state.mainPhoto}/>
           <Sidebar showModal={this.showModal.bind(this)} setMainPhoto={this.setMainPhoto.bind(this)} photos={this.state.photos}/>
           <BottomGallery photos={this.state.photos} setMainPhoto={this.setMainPhoto.bind(this)}/>
-          <Modal show={this.state.show} hideModal={this.hideModal.bind(this)} photos={this.state.photos}/>
+          <Modal show={this.state.show} hideModal={this.hideModal.bind(this)} photos={this.state.photos} hotel={this.state.hotel}/>
         </Container>
         )
       } else{

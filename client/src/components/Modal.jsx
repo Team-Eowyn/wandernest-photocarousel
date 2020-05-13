@@ -31,7 +31,7 @@ class Modal extends React.Component {
   render() {
     return (
       <ModalDisplay show={this.props.show}>
-        <ModalHeader hideModal={this.props.hideModal}></ModalHeader>
+        <ModalHeader hotel={this.props.hotel} hideModal={this.props.hideModal}></ModalHeader>
         <ModalBody photos={this.props.photos}></ModalBody>
       </ModalDisplay>
     )

@@ -62,10 +62,10 @@ const DealButton = styled.button`
   margin-right:10px;
 `
 
-function ModalHeader({hideModal}) {
+function ModalHeader({hideModal, hotel}) {
   return (
     <Header>
-      <Title>Photos of H20 Suites</Title>
+      <Title>Photos of {hotel.hotelName} Hotel</Title>
       <Hotel>TripAdvisor</Hotel>
       <Price>$349</Price>
       <DealButton>View Deal</DealButton>
