@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
 const path = require('path');
-const db = require('./database');
+const db = require('./index.js');
 
 
 
@@ -31,7 +31,7 @@ const seedData = () => {
     for (let i = min; i <= max; i++) {
       let isManagement = Math.random() >= 0.5;
 
-      let photo = new db.Photo({
+      let photo = {
         photoPath: `${imgUrl}Photo${i}.jpg`,
         isManagement: isManagement,
         creator: isManagement ? 'Management' : faker.name.findName(),
@@ -39,32 +39,15 @@ const seedData = () => {
         uploadDate: faker.date.past().toLocaleString(),
         Review: faker.lorem.paragraph(),
         Rating: isManagement ? null : Math.ceil(Math.random() * 5),
-      });
-
-      dbPhotos.push(
-        photo.save()
-          .then(item => {
-            return Promise.resolve(item);
-          })
-          .catch(err => {
-            console.log('Error savings photo to DB: ', err);
-          })
-      );
+      };
+      hotel.photos.push(photo);
     }
-
-    Promise.all(dbPhotos)
-      .then((results) => {
-        hotel.photos.push(results);
         hotel.save().then(item => {
           console.log('Hotel #' + h + 'was created successfully');
         })
           .catch((err) => {
             console.log('Error savings hotel to DB: ', err);
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+        });
   }
 };
 
