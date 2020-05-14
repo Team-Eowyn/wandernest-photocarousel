@@ -27,16 +27,31 @@ const AlbumHeader = styled.div`
 `
 
 const AlbumThumb = styled.div`
+  position:relative;
   width: 100%;
   margin:0;
   margin-bottom: 8px;
   min-width: 120px;
   max-width: 140px;
   height: 92px;
+  filter: brightness(80%);
   background: ${props => `url(${props.background})`};
   background-size: 100% 100%;
 `
+const AlbumThumbText = styled.span`
+  font-size:12px;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color:white;
+  position:absolute;
+  bottom: 0;
+  left: 0;
+  padding:10px;
 
+  &:hover{
+    text-decoration: underline;
+  }
+`
 const Gallery =styled.div`
   grid-area: 1 / 3 / 8 / 8;
   height:455px;
@@ -66,7 +81,37 @@ const GalleryContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 `
+
+const GalleryItemOverlay = styled.span`
+  z-index: 11;
+  display:flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width:100%;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  padding-bottom:10px;
+  color: white;
+  background: linear-gradient(0deg,rgba(0,0,0,.85) 0,rgba(0,0,0,.05) 50%);
+  opacity: 0;
+  transition: opacity .5s;
+`
+
+const AvatarImage = styled.img`
+  border: 2px solid #fff;
+  border-radius: 42px;
+  width: 42px;
+  margin-left:10px;
+`
+
+const CreatorName = styled.p`
+  margin-left: 10px;
+  margin-right:auto;
+`
+
 const GalleryItem = styled.div`
+  position:relative;
   background-color: grey;
   height: 206px;
   width: 270px;
@@ -74,6 +119,10 @@ const GalleryItem = styled.div`
   padding: 2px;
   background: ${props => `url(${props.background})`};
   background-size: 100% 100%;
+
+  &:hover ${GalleryItemOverlay}{
+    opacity: 1;
+  }
 `
 
 const DropContent = styled.span`
@@ -104,16 +153,17 @@ const Dropdown = styled.div`
     display: block;
   }
 `
-
 const PhotosFrom = styled(Dropdown)`
+  margin-right:auto;
   width: 187px;
 `
 
 const AllPhotos = styled(Dropdown)`
+  margin-left:10px;
+  margin-right:auto;
   width: 108px;
 `
 const Featured = styled(Dropdown)`
-  flex: 1 1 auto;
   margin-left:auto;
   width: 200px;
 `
@@ -139,24 +189,28 @@ function ModalBody({photos}) {
       <Albums>
         <AlbumHeader>Albums</AlbumHeader>
         {photos.slice(0,5).map( (photo, index)=>{
-        return <AlbumThumb background={photo.photoPath} key={index} />
+        return <AlbumThumb background={photo.photoPath} key={index}>
+                <AlbumThumbText>All Photos ({photos.length})</AlbumThumbText>
+        </AlbumThumb>
       })}
       </Albums>
       <Gallery>
         <GalleryHeader>Room & Suite</GalleryHeader>
         <FilterBy>Filter By</FilterBy>
         <SortBy>Sort By</SortBy>
-        <Dropdown> Photos from Everyone
+        <PhotosFrom> Photos from Everyone
           <DropContent>Photos from Travelers</DropContent>
           <DropContent>Photos from Management</DropContent>
-        </Dropdown>
-        <Dropdown> All Photos
-        </Dropdown>
-        <Dropdown> Featured
-        </Dropdown>
+        </PhotosFrom>
+        <AllPhotos> All Photos
+        </AllPhotos>
+        <Featured> Featured
+        </Featured>
           <GalleryContainer>
             {photos.map( (photo, index)=>{
-              return <GalleryItem background={photo.photoPath} key={index} />
+              return <GalleryItem background={photo.photoPath} key={index}>
+                <GalleryItemOverlay><AvatarImage src={photo.creatorAvatar}/><CreatorName>{photo.creator}</CreatorName></GalleryItemOverlay>
+              </GalleryItem>
             })}
           </GalleryContainer>
       </Gallery>
