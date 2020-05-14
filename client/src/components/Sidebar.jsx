@@ -41,7 +41,7 @@ const Traveler = styled(SidebarItem)`
 `
 
 const InnerSpan = styled.span`
-  margin: auto;
+  margin: 0 auto;
   display:block;
   color:white;
   font-size:16px;

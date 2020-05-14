@@ -13,7 +13,6 @@ const imageMax = 20;
 const buckets = 6;
 
 
-
 /*DB SEED*/
 const seedData = () => {
   for (let h = 1; h < hotelMax + 1; h++) {
@@ -29,16 +28,14 @@ const seedData = () => {
     let min = Math.abs(max - imageMax) + 1;
 
     for (let i = min; i <= max; i++) {
-      let isManagement = Math.random() >= 0.5;
 
       let photo = {
         photoPath: `${imgUrl}Photo${i}.jpg`,
-        isManagement: isManagement,
-        creator: isManagement ? 'Management' : faker.name.findName(),
-        creatorAvatar: isManagement ? 'managementIcon' : faker.image.avatar(),
+        creator: faker.name.findName(),
+        creatorAvatar:faker.image.avatar(),
         uploadDate: faker.date.past().toLocaleString(),
         Review: faker.lorem.paragraph(),
-        Rating: isManagement ? null : Math.ceil(Math.random() * 5),
+        Rating: Math.ceil(Math.random() * 5),
       };
       hotel.photos.push(photo);
     }
