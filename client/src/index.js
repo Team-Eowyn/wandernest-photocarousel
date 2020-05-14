@@ -13,9 +13,11 @@ class App extends React.Component {
 
   render() {
     return (
+      <div>
        <PhotoCarousel></PhotoCarousel>
+      </div>
     )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('Photos'));
