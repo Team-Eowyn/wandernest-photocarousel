@@ -18,6 +18,7 @@ const ModalDisplay = styled.div`
   z-index: 10;
   border-radius: 2px;
   height: 504px;
+  width:1200px;
   background-color: white;
   display: ${props => props.show ? "block" : "none"}
 `
