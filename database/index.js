@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/wandernest', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/wandernest-photos', { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on('connected', () => {
   console.log('Mongoose  successfully connected');
