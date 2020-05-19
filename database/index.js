@@ -7,6 +7,5 @@ mongoose.connection.on('connected', () => {
 
 module.exports = {
   connection: mongoose.connection,
-  Photo: require('./Models/Photo.js'),
   Hotel: require('./Models/Hotel.js')
 };
