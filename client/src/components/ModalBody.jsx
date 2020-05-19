@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import GalleryFocus from './GalleryFocus.jsx';
 
 const Container = styled.div`
   display: grid;
@@ -55,11 +56,11 @@ const AlbumThumbText = styled.span`
 const Gallery =styled.div`
   grid-area: 1 / 3 / 8 / 8;
   height:455px;
-  display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-content: flex-start;
   padding: 0 24px 14px;
+  display: ${props => props.displayGallery ? "flex" : "none"}
 `
 const GalleryHeader = styled.div`
   flex:0 0 100%;
@@ -114,8 +115,9 @@ const GalleryItem = styled.div`
   position:relative;
   background-color: grey;
   height: 206px;
-  width: 270px;
+  width: 268px;
   margin-bottom:4px;
+  margin-left: 5px;
   padding: 2px;
   background: ${props => `url(${props.background})`};
   background-size: 100% 100%;
@@ -183,32 +185,63 @@ color: #4a4a4a;
 line-height: 16px;
 `
 
-function ModalBody({photos}) {
+class ModalBody extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      focus: false,
+      displayGallery:true,
+      focusItem: null
+    }
+  }
+
+  componentWillReceiveProps(){
+    if(this.props.show === false){
+      this.hideFocus();
+    }
+  }
+  setFocus = (photo) => {
+    this.setState({
+      focus: true,
+      displayGallery:false,
+      focusItem: photo
+     });
+
+  };
+
+  hideFocus = () => {
+    this.setState({
+      focus: false,
+      displayGallery:true
+    });
+  };
+
+  render(){
   return (
     <Container>
       <Albums>
         <AlbumHeader>Albums</AlbumHeader>
-        {photos.slice(0,5).map( (photo, index)=>{
+        {this.props.photos.slice(0,5).map( (photo, index)=>{
         return <AlbumThumb background={photo.photoPath} key={index}>
-                <AlbumThumbText>All Photos ({photos.length})</AlbumThumbText>
+                <AlbumThumbText>All Photos ({this.props.photos.length})</AlbumThumbText>
         </AlbumThumb>
       })}
       </Albums>
-      <Gallery>
+      <GalleryFocus set={this.state.focus} photo={this.state.focusItem} hide={this.hideFocus.bind(this)}></GalleryFocus>
+      <Gallery displayGallery={this.state.displayGallery}>
         <GalleryHeader>Room & Suite</GalleryHeader>
         <FilterBy>Filter By</FilterBy>
         <SortBy>Sort By</SortBy>
         <PhotosFrom> Photos from Everyone
-          <DropContent>Photos from Travelers</DropContent>
-          <DropContent>Photos from Management</DropContent>
         </PhotosFrom>
         <AllPhotos> All Photos
         </AllPhotos>
         <Featured> Featured
         </Featured>
           <GalleryContainer>
-            {photos.map( (photo, index)=>{
-              return <GalleryItem background={photo.photoPath} key={index}>
+            {this.props.photos.map( (photo, index)=>{
+              return <GalleryItem background={photo.photoPath} key={index} onClick={() => this.setFocus(photo)}>
                 <GalleryItemOverlay><AvatarImage src={photo.creatorAvatar}/><CreatorName>{photo.creator}</CreatorName></GalleryItemOverlay>
               </GalleryItem>
             })}
@@ -216,6 +249,7 @@ function ModalBody({photos}) {
       </Gallery>
     </Container>
   )
+  }
 }
 
 export default ModalBody;
