@@ -64,8 +64,9 @@ class PhotoCarousel extends React.Component {
     this.setState({ show: true });
   };
 
-  hideModal = () => {
+  hideModal = (cb) => {
     this.setState({ show: false });
+    console.log("TEST", cb);
   };
 
   render() {
